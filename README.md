@@ -243,6 +243,7 @@ Complementary layers — decode, simulate, and score a transaction before signin
 - **[Ethereum Foundation](https://ethereum.org/foundation)** — Now stewards ERC-7730 governance. `community`
 - **[Ethereum Magicians](https://ethereum-magicians.org)** — Standards discussion forum. `community`
 - **[ERC-7730 Registry Issues](https://github.com/ethereum/clear-signing-erc7730-registry/issues)** — Propose changes, report gaps, submit descriptors. `community`
+- [HostDeFi](https://hostdefi.com) — free token-safety scanner grading tokens A+–F from on-chain checks (mint/freeze authority, liquidity, holder concentration) across Solana + 7 EVM chains. Keyless REST API, hosted MCP, x402 endpoints.
 
 ---
 
