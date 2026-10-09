@@ -205,6 +205,8 @@ Complementary layers — decode, simulate, and score a transaction before signin
 
 - **[Blockaid](https://www.blockaid.io)** — Transaction simulation + threat detection at the point of signature (used by MetaMask, Ledger, Coinbase). `security`
 - **[Tenderly Simulator](https://tenderly.co/transaction-simulator)** — Simulate state changes of a transaction before submitting. `security`
+- **[EIP-712 Inspector](https://dansgit2b.github.io/eip712-inspector/)** — Client-side EIP-712 decoder: flags Permit/Permit2/Seaport/unlimited amounts, computes digest, recovers signer. `tool`
+- **[Calldata Decoder](https://dansgit2b.github.io/calldata-decoder/)** — Client-side ABI-less calldata decoder with nested multicall/Safe decoding and unlimited-approval flags. `tool`
 - **[Cyfrin](https://www.cyfrin.io)** — Smart-contract security education and audits; ERC-7730 / ERC-8213 contributor. `security`
 - **[Ledger "Transaction Check"](https://www.blockaid.io/blog/how-blockaid-helps-ledgers-transaction-check-mitigate-blind-signing-risks)** — Blockaid-powered warnings that mitigate blind-signing risk. `article`
 - **[Transaction Verification vs. Blind Signing](https://www.blockaid.io/blog/transaction-verification-a-solution-to-blind-signing-in-hardware-wallets)** — Why simulation must be cryptographically bound to what's signed. `article`
