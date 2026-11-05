@@ -48,6 +48,8 @@ Clear signing is not academic — blind signing is a leading cause of catastroph
 
 - **[Bybit — ~$1.5B (Feb 2025)](https://www.chainalysis.com/blog/bybit-exchange-hack-february-2025-crypto-security-dprk/)** — The largest crypto theft to date. A compromised Safe{Wallet} interface showed signers a normal-looking transfer while the underlying calldata swapped the wallet's control logic. The keys were never stolen — the signers were **blind-signing** a payload they couldn't verify. The canonical clear-signing cautionary tale. `incident`
 - **[FBI / IC3 advisory on the Bybit hack](https://www.ic3.gov/psa/2025/psa250226)** — Official attribution (DPRK "TraderTraitor"), useful primary source on the attack pattern. `reference`
+- **[In-Depth Technical Analysis of the Bybit Hack (NCC Group)](https://www.nccgroup.com/research/in-depth-technical-analysis-of-the-bybit-hack/)** — Step-by-step reconstruction of the injected Safe{Wallet} JavaScript and the `delegatecall` that swapped the wallet's implementation. `article`
+- **[Bybit Hack: Lessons for Multisig Wallet Security (Certora)](https://certora.com/blog/bybit-hack-multisig-wallet-security)** — Why a multisig doesn't help when every signer sees the same manipulated UI. `article`
 - **[Radiant Capital — ~$50M (Oct 2024)](https://rekt.news/radiant-capital-rekt2)** — Multisig signers approved malicious transactions via a compromised front-end that displayed benign data while different calldata was signed on their hardware wallets. `incident`
 
 > The through-line: **What You See Is What You Sign (WYSIWYS)** must be the default. Clear signing + independent verification (fingerprints, simulation) is the defense.
@@ -140,6 +142,7 @@ graph LR
 - **[ERC-7730 spec (registry copy)](https://github.com/ethereum/clear-signing-erc7730-registry/blob/master/specs/erc-7730.md)** — Canonical, versioned spec text maintained in the registry repo. `spec`
 - **[ERC-8213 — Cryptographic Fingerprints](https://erc8213.eth.limo/)** — Fallback for cases 7730 can't reach: a short, reproducible fingerprint of the exact bytes being signed, verifiable on a second device. `spec`
 - **[ERC-8176 — Descriptor Attestations](https://eip.tools/eip/8176)** — An EAS-based framework letting auditors cryptographically attest that a descriptor matches verified on-chain code. `spec`
+- **[ERC-8176 discussion (Ethereum Magicians)](https://ethereum-magicians.org/t/erc-8176-integrity-verification-for-erc-7730/27911)** — Design thread for descriptor integrity and attestation. `community`
 
 ### Formats being signed
 
@@ -158,6 +161,7 @@ graph LR
 ## Official Resources
 
 - **[clearsigning.org](https://clearsigning.org)** — The initiative's home: overview, ecosystem, build guides, and governance. `official`
+- **[clearsigning.org/build](https://clearsigning.org/build/)** — Starting point for protocol and wallet developers, with links to the reference implementations. `official`
 - **[Ledger Clear Signing Docs](https://developers.ledger.com/docs/clear-signing/references/erc7730-standard)** — The most complete developer documentation for ERC-7730. `official`
 - **[ERC-7730 Specifications (Ledger)](https://developers.ledger.com/docs/clear-signing/reference/specifications)** — Field-by-field reference for writing descriptors. `official`
 - **[External Resources (Ledger)](https://developers.ledger.com/docs/clear-signing/reference/external-resources)** — Curated links from the Ledger dev portal. `official`
@@ -167,6 +171,8 @@ graph LR
 
 Build, validate, preview, and audit clear-signing descriptors.
 
+- **[sourcifyeth/clear-signing](https://github.com/sourcifyeth/clear-signing)** — Reference TypeScript implementation of ERC-7730: turns calldata and EIP-712 messages into a display model. Used by the registry's CI. `tool`
+- **[llbartekll/clear-signing](https://github.com/llbartekll/clear-signing)** — Rust implementation of ERC-7730, the second renderer the registry's CI checks descriptors against. `tool`
 - **[LedgerHQ/clear-signing-erc7730-developer-tools](https://github.com/LedgerHQ/clear-signing-erc7730-developer-tools)** — Original open-source Builder, Linter, Tester, and Analyzer. **(Archived — read-only)**; superseded by the libraries below. `tool`
 - **[python-erc7730](https://github.com/LedgerHQ/python-erc7730)** — Maintained Python library + CLI to build, parse, validate, lint, and convert ERC-7730 descriptors. `tool`
 - **[Cyfrin/clearsig](https://github.com/Cyfrin/clearsig)** — Python toolkit (`clearsig` CLI) for ERC-7730 descriptors and ERC-8213 fingerprints. `tool`
@@ -191,7 +197,7 @@ Where descriptors and contract metadata live so wallets can resolve intent.
 Wallets and platforms that render clear-signing intent to users.
 
 - **[Ledger](https://www.ledger.com)** — Originated Clear Signing (2023) and ERC-7730; renders descriptors on-device. `wallet`
-- **[Trezor](https://trezor.io)** — Hardware wallet steward contributing to the standard. `wallet`
+- **[Trezor](https://trezor.io/guides/sending-receiving-staking-funds/interacting-with-smart-contracts/clear-signing-on-trezor)** — Shipped ERC-7730 clear signing in September 2026 on the Safe 7, Safe 5, Safe 3 and Model T (not the Model One), across Trezor Suite, Trezor Connect and WalletConnect. Contracts without a registry descriptor fall back to a blind-signing warning. `wallet`
 - **[MetaMask](https://metamask.io)** — Decoding + simulation and signature-insight for transactions and messages. `wallet`
 - **[MetaMask Signature Insights (Snaps)](https://docs.metamask.io/snaps/features/signature-insights/)** — `onSignature` API to decode and annotate signature requests in the confirmation UI. `tool`
 - **[Rabby](https://rabby.io)** — Pre-sign simulation, balance-change preview, approval breakdown, and scam scoring — a reference clear-signing software wallet. `wallet`
@@ -228,6 +234,9 @@ Complementary layers — decode, simulate, and score a transaction before signin
 - **[What Is Clear Signing? ERC-7730 Explained (Ambire)](https://blog.ambire.com/clear-signing-erc-7730/)** — Approachable intro with before/after `approve()` examples. `article`
 - **[What is ERC-7730? (QuickNode)](https://www.quicknode.com/blog/erc-7730-clear-signing-standard)** — Developer explainer that's honest about the limits (readable ≠ verified). `article`
 - **[ERC-7730 v2 & The Evolution of Clear Signing (Ledger)](https://www.ledger.com/blog-the-evolution-of-clear-signing)** — Ledger's overview of the standard's direction. `article`
+- **[Stewardship of Clear Signing Passed to the Ethereum Foundation (Ledger)](https://www.ledger.com/blog-ledger-clear-signing-ethereum-foundation)** — Why Ledger handed ERC-7730 and the registry to a neutral steward. `article`
+- **[Introduction to ERC-7730 (Sourcify)](https://docs.sourcify.dev/blog/intro-to-erc7730/)** — How descriptors build on verified contract metadata, with pointers to the TypeScript and Rust implementations. `article`
+- **[Clear Signing: Teaching Wallets to Say What You're Signing (woza.ink)](https://www.woza.ink/blog/clear-signing)** — Long-form explainer with diagrams: why ABI decoding isn't enough, how a descriptor renders, and the trust chain from registry to attestation to device. `article`
 - **[EIP-712 explained (blockchain-wiki)](https://github.com/fullstack-development/blockchain-wiki-en/blob/main/EIPs/eip-712/README.md)** — Deep dive on typed-data hashing. `article`
 - **[Guide for Wallet Devs: EIP-7702 + ERC-4337](https://erc4337.substack.com/p/guide-for-wallet-devs-for-getting)** — How the two combine for smart-account UX. `article`
 - **[Is WalletConnect Safe? v2 Security Guide](https://ndlabs.dev/is-walletconnect-safe)** — Threat model behind approval-based drainer scams. `article`
